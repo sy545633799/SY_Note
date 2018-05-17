@@ -26,7 +26,7 @@ require "luasql.mysql"
 env = luasql.mysql()
 
 --连接数据库
-conn = env:connect("数据库名","用户名","密码","IP地址",端口)
+conn = env:connect("数据库名","用户名","密码","IP地址")
 
 --设置数据库的编码格式
 conn:execute"SET NAMES UTF8"

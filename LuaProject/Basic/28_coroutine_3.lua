@@ -9,6 +9,11 @@ function productor()
      end
 end
 
+
+function send(x)
+    coroutine.yield(x)     -- x表示需要发送的值，值返回以后，就挂起该协同程序
+end
+
 function consumer()
      while true do
           local i = receive()     -- 从生产者那里得到物品
@@ -21,9 +26,6 @@ function receive()
      return value
 end
 
-function send(x)
-     coroutine.yield(x)     -- x表示需要发送的值，值返回以后，就挂起该协同程序
-end
 
 -- 启动程序
 newProductor = coroutine.create(productor)

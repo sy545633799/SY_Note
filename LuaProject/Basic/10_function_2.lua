@@ -30,16 +30,16 @@ add(2,5,myprint)
 -- Lua函数可以返回多个结果值，比如string.find，其返回匹配串"开始和结束的下标"（如果不存在匹配串返回nil）。
 
 function maximum (a)
-    local mi = 1             -- 最大值索引
-    local m = a[mi]          -- 最大值
-    -- 相当于 mi = 1, mi =8
+    local mIndex = 1             -- 最大值索引
+    local m = a[mIndex]          -- 最大值
+    -- 相当于 mIndex = 1, mIndex =8
     for i,val in ipairs(a) do
        if val > m then
-           mi = i
+           mIndex = i
            m = val
        end
     end
-    return m, mi
+    return m, mIndex
 end
 
 print(maximum({8,10,23,12,5}))
@@ -57,4 +57,26 @@ function average(...)
 end
 
 print("average:",average(10,5,3,4,5,6))
+
+-- unpack的使用
+print(string.find(unpack({"hello", "ll"})))  --> 3 4
+
+
+
+-- 获取延长参数的数量select
+function foo2( ... )
+
+    print(select("#", ...))
+
+    for i=1,select("#", ...) do
+        -- print(select(i, ...))
+        local argc = select(i, ...) --每次赋值的时候多给了很多参数，后面的参数被自动舍弃了
+        if argc then
+            print("argc:" .. argc)
+        end
+    end
+end
+foo2(2, 23, nil, 43, 3)
+
+--具名实参rename
 

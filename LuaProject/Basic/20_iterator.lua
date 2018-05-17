@@ -31,41 +31,68 @@ do
    print(i,n)
 end
 
---可以这样实现ipairs
-function iter (a, i)
-    i = i + 1
-    local v = a[i]
-    if v then
-       return i, v
-    end
-end
- 
-function ipairs (a)
-    return iter, a, 0       -->即返回一个迭代器
-end
+-- --可以这样实现ipairs
+-- function iter (a, i)
+--     i = i + 1
+--     local v = a[i]
+--     if v then
+--        return i, v
+--     end
+-- end
+        
+-- function ipairs1 (a)
+--     return iter, a, 0       -->即返回一个迭代器
+-- end
+
 -- 当Lua调用ipairs(a)开始循环时，他获取三个值：迭代函数iter、状态常量a、控制变量初始值0；然后Lua调用iter(a,0)返回1,a[1]（除非a[1]=nil）；第二次迭代调用iter(a,1)返回2,a[2]……直到第一个nil元素。
 
 -- 多状态的迭代器
 -- 很多情况下，迭代器需要保存多个状态信息而不是简单的状态常量和控制变量，最简单的方法是使用闭包，还有一种方法就是将所有的状态信息封装到table内，将table作为迭代器的状态常量，因为这种情况下可以将所有的信息存放在table内，所以迭代函数通常不需要第二个参数。
 -- 以下实例我们创建了自己的迭代器：
 
-array = {"hello", "lua"}
+array = {"hello", "lua", [3] = "java", [5] = "c++", test1 = "test", test2 = "test"}
 
-function elementIterator (collection)
-   local index = 0
-   local count = #collection
-   -- 闭包函数
-   return function ()
-      index = index + 1
-      if index <= count
-      then
-         --  返回迭代器的当前元素
-         return collection[index]
-      end
-   end
-end
+--ipairs
+local function ipairs_next_func(tab, key)  
+    local x = 1 
+    local key = key + 1  
+    local value = tab[key]  
+    if value then  
+        return key, value  
+    end  
+end  
+local function ipairs_func(tab)  
+    return ipairs_next_func, tab, 0  
+end  
 
-for element in elementIterator(array)
-do
-   print(element)
-end
+--pairs
+local function pairs_next_func(tab, key)  
+    local key = next(tab, key) 
+    local value = tab[key]  
+    if value then  
+        return key, value  
+    end  
+end  
+local function pairs_func(tab, key)  
+    return pairs_next_func, tab, nil  
+end  
+
+local function for_func(iter_func, array)  
+    local next, tab, key = iter_func(array)  
+    while true do  
+        local k, v = next(tab, key)  
+        if not k then break end   
+        key = k  
+        print(k, v)  
+    end  
+end  
+
+print("ipairs_func:")  
+for_func(ipairs_func, array)  
+
+print("pairs_func:")  
+for_func(pairs_func, array)
+
+
+print("----------------------------------------------")
+print(next(array, 3))

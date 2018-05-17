@@ -30,7 +30,7 @@ print("2_last element ",fruits[5])
 -- 3	table.remove (table [, pos])
 -- 返回table数组部分位于pos位置的元素. 其后的元素会被前移. pos参数可选, 默认为table长度, 即从最后一个元素删起。
 table.remove(fruits)
-print("3_remove last element ",table.concat(fruits,","))       --> nil 默认删除最后一个
+print("3_remove last element ",table.concat(fruits,","))       --> banana,grapes,orange,apple 默认删除最后一个
 
 -- 4	table.maxn (table)
 -- 指定table中所有正数key值中最大的key值. 如果不存在key值为正数的元素, 则返回0。(Lua5.2之后该方法已经不存在了,本文使用了自定义函数实现)

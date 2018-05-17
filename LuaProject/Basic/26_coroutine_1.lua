@@ -12,8 +12,9 @@ co = coroutine.create(
         print(i);
     end
 )
- 
-coroutine.resume(co, 1)   -- 1
+print(coroutine.status(co))  --suspended
+
+coroutine.resume(co, 100)   -- 1
 print(coroutine.status(co))  -- dead
  
 print("----------")
@@ -23,11 +24,10 @@ co = coroutine.wrap(
         print(i);
     end
 )
- 
-co(1)
+co(101)
  
 print("----------")
- 
+
 co2 = coroutine.create(
     function()
         for i=1,10 do
@@ -46,6 +46,6 @@ coroutine.resume(co2) --2
 coroutine.resume(co2) --3
  
 print(coroutine.status(co2))   -- suspended
-print(coroutine.running())
- 
+print(coroutine.running())     -- nil
+
 print("----------")
