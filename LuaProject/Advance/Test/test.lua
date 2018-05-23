@@ -55,7 +55,33 @@ require('./Common/global')
 -- print(#dic.keyList)
 
 
-for i in pairs(_G) do
-    print(i)
-end
+-- for i in pairs(_G) do
+--     print(i)
+-- end
+
+-- function readOnly( t )
+--     local o ={}
+--     setmetatable(o, {
+--         __index = t,
+--         __newindex = function ( t, k ,v )
+--             print("read only !")
+--         end
+--     })
+--     return o
+-- end
+
+-- days = readOnly({ "one", "two" })
+
+-- print(days[1])
+
+-- days[1] = 123   --readOnly!
+
+-- tb = {"rerere", test01 = "test01", "restse", test = "test"} 
+-- tb["test03"] = "test03"
+-- tb.test04 = "test04"
+-- print(#tb)
+
+-- for i,v in pairs(tb) do
+--     print(i,v)
+-- end
 

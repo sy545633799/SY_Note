@@ -36,7 +36,7 @@ function  tb.func2()
 end
 tb : func1(123)        --> func1  123
 tb.func1(123)          --> func1  nil
-tb.func1(self, 123)    -- >func1  123
+tb.func1(tb, 123)    -- >func1  123
 tb : func2()       --> func2
 tb.func2()         --> func2
 
